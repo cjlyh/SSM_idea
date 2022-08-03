@@ -54,5 +54,9 @@ public interface UserMapper {
     public List<Resource> findResourceByRoleId(List<Integer> list);
     
     public void add();
+    
+    public void text();
+    public void text2();
+    public void text3();
 
 }
