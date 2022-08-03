@@ -55,8 +55,14 @@ public interface UserMapper {
     
     public void add();
     
-    public void textgit();
-    public void textgit2();
-    public void textgit3();
+    public void git();
+    public void git2();
+    public void git3();
+    public void git4();
+    public void git5();
+    public void git6();
+    public void git7();
+    public void git8();
+
 
 }
