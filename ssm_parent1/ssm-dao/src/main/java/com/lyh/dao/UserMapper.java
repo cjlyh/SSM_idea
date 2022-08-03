@@ -52,5 +52,7 @@ public interface UserMapper {
         4.获取用户拥有的资源权限信息
      */
     public List<Resource> findResourceByRoleId(List<Integer> list);
+    
+    public void add();
 
 }
