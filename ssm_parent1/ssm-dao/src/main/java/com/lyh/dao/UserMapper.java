@@ -59,8 +59,4 @@ public interface UserMapper {
     public void text2();
     public void text3();
 
-    public void text();
-    public void text2();
-    public void text3();
-
 }
