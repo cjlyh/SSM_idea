@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lyh.dao.PromotionAdMapper">
+
+    <resultMap id="ad_space" type="com.lyh.domain.PromotionAd">
+
+        <id property="id" column="id"></id>
+        <result property="name" column="name"></result>
+        <result property="spaceId" column="spaceId"></result>
+        <result property="keyword" column="keyword"></result>
+        <result property="htmlContent" column="htmlContent"></result>
+        <result property="text" column="text"></result>
+        <result property="link" column="link"></result>
+        <result property="startTime" column="startTime"></result>
+        <result property="endTime" column="endTime"></result>
+        <result property="createTime" column="createTime"></result>
+        <result property="updateTime" column="updateTime"></result>
+        <result property="priority" column="priority"></result>
+        <result property="img" column="img"></result>
+        
+        <association property="promotionSpace" select="com.lyh.dao.PromotionSpaceMapper.findPromotionSpaceById" column="spaceId" javaType="com.lyh.domain.PromotionSpace"></association>
+
+    </resultMap>
+
+    <!--分页查询广告信息-->
+    <select id="findAllPromotionAdByPage" resultMap="ad_space">
+        select * from promotion_ad
+    </select>
+
+    <!--广告动态上下线-->
+    <update id="updatePromotionAdStatus" parameterType="com.lyh.domain.PromotionAd">
+        update promotion_ad set status = #{status},updateTime = #{updateTime} where id = #{id}
+    </update>
+    
+    <!--新增广告信息-->
+    <insert id="savePromotionAd" parameterType="com.lyh.domain.PromotionAd">
+        INSERT INTO promotion_ad
+        VALUES(NULL,#{name},#{spaceId},#{keyword},#{htmlContent},
+               #{text},#{link},#{startTime},#{endTime},#{createTime},#{updateTime},#{status},#{priority},#{img});
+    </insert>
+
+    <!--修改广告信息-->
+    <update id="updatePromotionAd" parameterType="com.lyh.domain.PromotionAd">
+        update promotion_ad
+        <trim prefix="set" suffixOverrides=",">
+            <if test="name != null and name != ''">
+                name = #{name},
+            </if>
+            <if test="spaceId != null and spaceId != ''">
+                spaceId = #{spaceId},
+            </if>
+            <if test="link != null">
+                link=#{link},
+            </if>
+            <if test="status != null and status != '' or status == 0">
+                status=#{status},
+            </if>
+            <if test="img != null">
+                img=#{img},
+            </if>
+            <if test="text != null">
+                text=#{text},
+            </if>
+            <if test="startTime != null">
+                startTime=#{startTime},
+            </if>
+            <if test="endTime != null">
+                endTime=#{endTime},
+            </if>
+            <if test="updateTime != null">
+                updateTime=#{updateTime},
+            </if>
+        </trim>
+        <where>
+            <if test="id != null and id != ''">id = #{id}</if>
+        </where>
+    </update>
+
+    <!--根据id回显广告信息-->
+    <select id="findPromotionAdById" parameterType="int" resultType="com.lyh.domain.PromotionAd">
+        SELECT
+            id,
+            NAME,
+            spaceId,
+            startTime,
+            endTime,
+            STATUS,
+            img,
+            link,
+            TEXT
+        FROM promotion_ad WHERE id = #{id}
+    </select>
+</mapper>
