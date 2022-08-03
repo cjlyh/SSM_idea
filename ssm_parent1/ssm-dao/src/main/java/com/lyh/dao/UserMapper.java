@@ -55,4 +55,8 @@ public interface UserMapper {
     
     public void add();
 
+    public void text();
+    public void text2();
+    public void text3();
+
 }
