@@ -8,6 +8,9 @@ import com.lyh.service.CourseContenService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Isolation;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
 import java.util.List;
@@ -33,6 +36,7 @@ public class CourseContenServiceImpl implements CourseContenService {
     }
 
     @Override
+    @Transactional(propagation = Propagation.REQUIRED,isolation = Isolation.REPEATABLE_READ,timeout = -1,readOnly = false)
     public void saveSection(CourseSection courseSection) {
         //1.补全信息
         Date date = new Date();

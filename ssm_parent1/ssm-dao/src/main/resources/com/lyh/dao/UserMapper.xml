@@ -29,8 +29,6 @@
     <select id="login" parameterType="com.lyh.domain.User" resultType="com.lyh.domain.User">
         select * from user where phone = #{phone}
     </select>
-    
-
 
     <!--根据用户ID清空中间表-->
     <delete id="deleteUserContextRole" parameterType="int">
@@ -75,5 +73,4 @@
               r.id IN
         <foreach  collection="list" item="item" index="index"  open='(' close=')' separator=",">#{item}</foreach>
     </select>
-
 </mapper>
